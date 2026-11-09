@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USTP HealthLink | Login</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Premium Toast Notification -->
+    <div id="toast" class="toast">
+        <div class="toast-icon">
+            <i class="fa-solid fa-circle-exclamation"></i>
+        </div>
+        <div class="toast-content">
+            <h4>Login Failed</h4>
+            <p>Invalid University ID or Password.</p>
+        </div>
+        <div class="toast-close" onclick="closeToast()">
+            <i class="fa-solid fa-xmark"></i>
+        </div>
+    </div>
+
+    <div class="notice-container">
+        <button class="notice-btn" id="noticeBtn" title="Important Notice">
+            <i class="fa-solid fa-circle-info"></i>
+        </button>
+        
+        <div class="notice-popup" id="noticePopup">
+            <div class="notice-header">
+                <i class="fa-solid fa-triangle-exclamation"></i> Notice
+            </div>
+            <p>This system is designed exclusively for online appointment scheduling. In the event of an emergency, please proceed directly to the clinic or contact the nearest hospital immediately for urgent care.</p>
+        </div>
+    </div>
+
+    <div class="background-glow"></div>
+
+    <div class="login-container">
+        <div class="login-card" id="loginCard">
+            <div class="login-header">
+                <h1>HealthLink</h1>
+                <p>Welcome back. Please log in to your account.</p>
+            </div>
+
+            <form class="login-form" id="loginForm">
+                
+                <!-- UPDATED: Only University ID now -->
+                <div class="input-group">
+                    <input type="text" id="username" required placeholder=" ">
+                    <label for="username">University ID</label>
+                    <i class="fa-regular fa-id-card static-icon"></i>
+                </div>
+
+                <div class="input-group">
+                    <input type="password" id="password" required placeholder=" ">
+                    <label for="password">Password</label>
+                    <i class="fa-regular fa-eye-slash interactive-icon" id="toggleIcon"></i>
+                </div>
+
+                <div class="options">
+                    <label class="custom-checkbox">
+                        <input type="checkbox" id="remember">
+                        <span class="checkmark"></span>
+                        Remember me
+                    </label>
+                    <a href="#" class="forgot-link">Forgot password?</a>
+                </div>
+
+                <button type="submit" class="login-btn" id="loginBtn">
+                    <span>Sign In</span>
+                </button>
+
+                <div class="signup-link">
+                    Don't have an account? <a href="#">Create Account</a>
+                </div>
+            </form>
+
+            <div class="card-footer">
+                &copy; 2026 HealthLink. All rights reserved.
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

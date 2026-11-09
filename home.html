@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USTP HealthLink | Dashboard</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dashboard-body">
+
+    <!-- Background Canvas for depth -->
+    <div class="bg-canvas">
+        <div class="glow glow-blue"></div>
+        <div class="glow glow-gold"></div>
+    </div>
+
+    <div class="app-container">
+        
+        <!-- 1. TOP HEADER -->
+        <header class="top-header">
+            <div class="nav-logo">
+                HealthLink
+            </div>
+
+            <div class="header-right-side">
+                <div class="user-profile-header">
+                    <div class="user-info">
+                        <h2>Justin Jacob Acedo</h2>
+                        <p>BSIT - 1 <span class="user-id">ID: 2026-001</span></p>
+                    </div>
+                    <div class="user-avatar">
+                        <img src="https://ui-avatars.com/api/?name=Justin+Acedo&background=1e3a8a&color=ffffff&size=150" alt="Profile">
+                    </div>
+                </div>
+
+                <a href="index.html" class="logout-icon" title="Log Out"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+
+                <div class="notice-container top-header-notice">
+                    <button class="notice-btn" id="noticeBtn" title="Important Notice">
+                        <i class="fa-solid fa-info"></i>
+                    </button>
+                    
+                    <div class="notice-popup" id="noticePopup">
+                        <div class="notice-header">
+                            <i class="fa-solid fa-triangle-exclamation"></i> Important Reminder
+                        </div>
+                        <p>This platform is intended only for scheduling clinic appointments. For urgent or emergency medical situations, please proceed directly to the University Clinic or contact emergency services immediately.</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- MAIN LAYOUT GRID -->
+        <div class="main-layout">
+            
+            <!-- 2. LEFT PANEL -->
+            <aside class="left-panel">
+                <div class="nav-track">
+                    <a href="#" class="nav-item active" id="nav-dashboard" onclick="switchTab(event, 'dashboard')">
+                        <div class="nav-icon"><i class="fa-solid fa-house"></i></div>
+                        <span>Home</span>
+                    </a>
+                    <a href="#" class="nav-item" id="nav-book" onclick="switchTab(event, 'book')">
+                        <div class="nav-icon"><i class="fa-solid fa-calendar-plus"></i></div>
+                        <span>Book</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <div class="nav-icon"><i class="fa-regular fa-calendar-days"></i></div>
+                        <span>Calendar</span>
+                    </a>
+                    <a href="#" class="nav-item">
+                        <div class="nav-icon"><i class="fa-regular fa-folder-open"></i></div>
+                        <span>Records</span>
+                    </a>
+                </div>
+            </aside>
+
+            <!-- 3. RIGHT PANEL -->
+            <main class="right-panel">
+                
+                <!-- DASHBOARD VIEW -->
+                <div id="view-dashboard" class="page-view active-view">
+                    <div class="welcome-banner">
+                        <div class="welcome-text">
+                            <h1>Welcome back, <span>Justin!</span></h1>
+                            <p>Here is your health overview for today.</p>
+                        </div>
+                    </div>
+
+                    <div class="content-section">
+                        <div class="section-header">
+                            <h3>My Appointments</h3>
+                            <a href="#" class="view-all">View All <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                        
+                        <div class="appointment-card">
+                            <div class="appt-date">
+                                <span class="month">NOV</span>
+                                <span class="day">24</span>
+                            </div>
+                            <div class="appt-details">
+                                <h4>General Checkup</h4>
+                                <p><i class="fa-solid fa-user-doctor"></i> Dr. Mabini</p>
+                                <p><i class="fa-solid fa-clock"></i> 10:00 AM - 10:30 AM</p>
+                            </div>
+                            <div class="appt-status">
+                                <span class="status-badge confirmed"><i class="fa-solid fa-check-circle"></i> Confirmed</span>
+                                <button class="cancel-btn">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="content-section">
+                        <div class="section-header">
+                            <h3>Available Doctors Today</h3>
+                        </div>
+                        
+                        <div class="doctor-grid">
+                            <div class="doctor-card">
+                                <div class="doc-avatar online">
+                                    <img src="https://ui-avatars.com/api/?name=Mabini&background=fbbf24&color=1e3a8a" alt="Doctor">
+                                </div>
+                                <div class="doc-info">
+                                    <h4>Dr. Mabini</h4>
+                                    <p>General Physician</p>
+                                    <span class="doc-time"><i class="fa-regular fa-clock"></i> 8:00 AM - 12:00 PM</span>
+                                </div>
+                                <div class="status-pill active"><span class="dot"></span> Active</div>
+                            </div>
+
+                            <div class="doctor-card">
+                                <div class="doc-avatar online">
+                                    <img src="https://ui-avatars.com/api/?name=Jose+Rizal&background=1e3a8a&color=ffffff" alt="Doctor">
+                                </div>
+                                <div class="doc-info">
+                                    <h4>Dr. Jose Rizal</h4>
+                                    <p>Dentist</p>
+                                    <span class="doc-time"><i class="fa-regular fa-clock"></i> 1:00 PM - 4:00 PM</span>
+                                </div>
+                                <div class="status-pill active"><span class="dot"></span> Active</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BOOK APPOINTMENT VIEW -->
+                <div id="view-book" class="page-view">
+                    
+                    <div class="welcome-banner">
+                        <div class="welcome-text">
+                            <h1>Book an <span>Appointment</span></h1>
+                            <p>Please fill out the details below to schedule your clinic visit.</p>
+                        </div>
+                    </div>
+
+                    <!-- Added wrapper to center the form -->
+                    <div class="booking-wrapper">
+                        <div class="booking-container">
+                            <form class="booking-form" id="bookingForm">
+                                
+                                <div class="form-section">
+                                    <h3><i class="fa-solid fa-notes-medical"></i> Reason for Visit</h3>
+                                    <div class="input-grid">
+                                        <div class="input-field">
+                                            <label>Select Service</label>
+                                            <select required>
+                                                <option value="" disabled selected>Choose a service...</option>
+                                                <option value="general">General Checkup</option>
+                                                <option value="dental">Dental Checkup</option>
+                                                <option value="consultation">Medical Consultation</option>
+                                                <option value="injury">Injury / First Aid</option>
+                                            </select>
+                                        </div>
+                                        <div class="input-field">
+                                            <label>Preferred Doctor (Optional)</label>
+                                            <select>
+                                                <option value="" selected>Any Available Doctor</option>
+                                                <option value="mabini">Dr. Mabini (General)</option>
+                                                <option value="rizal">Dr. Jose Rizal (Dentist)</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-section">
+                                    <h3><i class="fa-regular fa-calendar-check"></i> Schedule</h3>
+                                    <div class="input-grid">
+                                        <div class="input-field">
+                                            <label>Preferred Date</label>
+                                            <input type="date" required>
+                                        </div>
+                                        <div class="input-field">
+                                            <label>Preferred Time</label>
+                                            <select required>
+                                                <option value="" disabled selected>Select time...</option>
+                                                <option value="morning">Morning (8:00 AM - 11:00 AM)</option>
+                                                <option value="afternoon">Afternoon (1:00 PM - 4:00 PM)</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-section">
+                                    <h3><i class="fa-regular fa-comment-dots"></i> Additional Notes</h3>
+                                    <div class="input-field">
+                                        <label>Describe your symptoms or reason for visit</label>
+                                        <textarea rows="4" placeholder="E.g., I've been having a headache for 2 days..."></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="form-actions">
+                                    <button type="button" class="btn-cancel" onclick="switchTab(event, 'dashboard')">Cancel</button>
+                                    <button type="submit" class="btn-submit">Confirm Appointment <i class="fa-solid fa-check"></i></button>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+    <script>
+        function switchTab(event, tabName) {
+            if (event) event.preventDefault(); 
+            
+            document.querySelectorAll('.page-view').forEach(view => {
+                view.classList.remove('active-view');
+            });
+
+            document.querySelectorAll('.nav-item').forEach(nav => {
+                nav.classList.remove('active');
+            });
+
+            if (tabName === 'dashboard') {
+                document.getElementById('view-dashboard').classList.add('active-view');
+                document.getElementById('nav-dashboard').classList.add('active');
+            } else if (tabName === 'book') {
+                document.getElementById('view-book').classList.add('active-view');
+                document.getElementById('nav-book').classList.add('active');
+            }
+        }
+
+        document.getElementById('bookingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Appointment Booked Successfully!');
+            switchTab(null, 'dashboard'); 
+        });
+    </script>
+</body>
+</html>
