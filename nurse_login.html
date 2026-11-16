@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USTP HealthLink | Staff Portal</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="toast" class="toast">
+        <div class="toast-icon">
+            <i class="fa-solid fa-circle-exclamation"></i>
+        </div>
+        <div class="toast-content">
+            <h4>Access Denied</h4>
+            <p>Invalid Staff ID or Password.</p>
+        </div>
+        <div class="toast-close" onclick="closeToast()">
+            <i class="fa-solid fa-xmark"></i>
+        </div>
+    </div>
+
+    <div class="background-glow"></div>
+
+    <div class="login-container">
+        <div class="login-card" id="loginCard">
+            
+            <div class="login-header">
+                <h1>Staff Portal</h1>
+                <p>Nurse & Administrator Access</p>
+            </div>
+
+            <form class="login-form" id="nurseLoginForm">
+                
+                <div class="input-group">
+                    <input type="text" id="staffId" required placeholder=" ">
+                    <label for="staffId">Staff ID</label>
+                    <i class="fa-regular fa-id-badge static-icon"></i>
+                </div>
+
+                <div class="input-group">
+                    <input type="password" id="staffPassword" required placeholder=" ">
+                    <label for="staffPassword">Password</label>
+                    <i class="fa-regular fa-eye-slash interactive-icon" id="toggleIcon"></i>
+                </div>
+
+                <div class="options">
+                    <label class="custom-checkbox">
+                        <input type="checkbox" id="remember">
+                        <span class="checkmark"></span>
+                        Remember me
+                    </label>
+                    <a href="#" class="forgot-link">Forgot password?</a>
+                </div>
+
+                <button type="submit" class="login-btn" id="loginBtn">
+                    <span>Login</span>
+                </button>
+
+            </form>
+
+            <div class="card-footer">
+                &copy; 2026 USTP HealthLink. All rights reserved.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const togglePassword = document.querySelector('#toggleIcon');
+            const passwordInput = document.querySelector('#staffPassword');
+
+            if(togglePassword && passwordInput) {
+                togglePassword.addEventListener('click', function (e) {
+                    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                    passwordInput.setAttribute('type', type);
+                    
+                    if (type === 'text') {
+                        this.classList.remove('fa-eye-slash');
+                        this.classList.add('fa-eye');
+                    } else {
+                        this.classList.remove('fa-eye');
+                        this.classList.add('fa-eye-slash');
+                    }
+                });
+            }
+
+            const loginForm = document.getElementById('nurseLoginForm');
+            const loginBtn = document.getElementById('loginBtn');
+            const toast = document.getElementById('toast');
+
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const enteredId = document.getElementById('staffId').value.trim();
+                const enteredPassword = document.getElementById('staffPassword').value;
+
+                loginBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Verifying...';
+                loginBtn.style.opacity = '0.8';
+
+                setTimeout(() => {
+                    if (enteredId === 'NURSE-001' && enteredPassword === 'ustp123') {
+                        // REMOVED: sessionStorage.setItem
+                        window.location.href = 'nurse_dashboard.html'; 
+                    } else {
+                        loginBtn.innerHTML = '<span>Login</span>';
+                        loginBtn.style.opacity = '1';
+                        
+                        toast.classList.add('show');
+                        setTimeout(() => { toast.classList.remove('show'); }, 3500);
+                    }
+                }, 800);
+            });
+        });
+
+        function closeToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.remove('show');
+        }
+    </script>
+</body>
+</html>
