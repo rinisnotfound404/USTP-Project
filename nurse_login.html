@@ -31,8 +31,8 @@
         <div class="login-card" id="loginCard">
             
             <div class="login-header">
-                <h1>Staff Portal</h1>
-                <p>Nurse & Administrator Access</p>
+                <h1>HealthLink</h1>
+                <p>Staff Portal Access</p>
             </div>
 
             <form class="login-form" id="nurseLoginForm">
@@ -105,7 +105,6 @@
 
                 setTimeout(() => {
                     if (enteredId === 'NURSE-001' && enteredPassword === 'ustp123') {
-                        // REMOVED: sessionStorage.setItem
                         window.location.href = 'nurse_dashboard.html'; 
                     } else {
                         loginBtn.innerHTML = '<span>Login</span>';
