@@ -1,7 +1,36 @@
 document.addEventListener('DOMContentLoaded', () => {
     
     // ==========================================
-    // 1. HARDCODED USER CREDENTIALS (Simulation)
+    // 1. DETERMINISTIC GLOBAL AVATAR COLORS
+    // ==========================================
+    const avatarColors = [
+        '#1e3a8a', // Deep Blue (Primary)
+        '#3b82f6', // Bright Blue
+        '#0f766e', // Teal
+        '#475569', // Slate Gray
+        '#b45309', // Bronze/Deep Gold
+        '#10b981'  // Clinic Green
+    ];
+
+    document.querySelectorAll('.avatar-fallback').forEach(avatar => {
+        // Get the user's name from the title attribute (e.g., title="Justin")
+        const name = avatar.getAttribute('title') || avatar.textContent || 'User';
+        
+        // Hash the name into a number
+        let hash = 0;
+        for (let i = 0; i < name.length; i++) {
+            hash = name.charCodeAt(i) + ((hash << 5) - hash);
+        }
+        
+        // Use the hash to pick a color index, ensuring it's positive
+        const colorIndex = Math.abs(hash) % avatarColors.length;
+        
+        // Apply the color
+        avatar.style.backgroundColor = avatarColors[colorIndex];
+    });
+
+    // ==========================================
+    // 2. LOGIN PAGE LOGIC (From your script.js)
     // ==========================================
     const VALID_USER_ID = "2026-001"; 
     const VALID_PASSWORD = "ustp123";
@@ -25,33 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- Notice Popup Logic ---
-    const noticeBtn = document.querySelector('#noticeBtn');
-    const noticePopup = document.querySelector('#noticePopup');
-
-    if (noticeBtn && noticePopup) {
-        noticeBtn.addEventListener('click', (e) => {
-            e.stopPropagation(); 
-            noticePopup.classList.toggle('show');
-            
-            if (noticePopup.classList.contains('show')) {
-                noticeBtn.classList.remove('hidden');
-            } else {
-                noticeBtn.classList.add('hidden');
-            }
-        });
-
-        document.addEventListener('click', (e) => {
-            if (!noticePopup.contains(e.target) && e.target !== noticeBtn && !noticeBtn.contains(e.target)) {
-                noticePopup.classList.remove('show');
-                noticeBtn.classList.add('hidden'); 
-            }
-        });
-    }
-
-    // ==========================================
-    // 2. LOGIN AUTHENTICATION LOGIC
-    // ==========================================
+    // --- Login Authentication ---
     const loginForm = document.querySelector('#loginForm');
     const loginBtn = document.querySelector('#loginBtn');
     const toast = document.querySelector('#toast');
@@ -63,39 +66,34 @@ document.addEventListener('DOMContentLoaded', () => {
             const enteredID = document.querySelector('#username').value.trim();
             const enteredPassword = document.querySelector('#password').value;
 
-            // Simulate loading state
             loginBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Signing In...';
             loginBtn.style.opacity = '0.8';
 
             setTimeout(() => {
-                // Check credentials
                 if (enteredID === VALID_USER_ID && enteredPassword === VALID_PASSWORD) {
                     window.location.href = 'home.html'; 
                 } else {
-                    // FAIL: Reset button
                     loginBtn.innerHTML = '<span>Sign In</span>';
                     loginBtn.style.opacity = '1';
                     
-                    // Show Toast Notification
-                    showToast();
+                    if (toast) {
+                        toast.classList.add('show');
+                        setTimeout(() => {
+                            toast.classList.remove('show');
+                        }, 3500);
+                    } else {
+                        alert("Login Failed: Invalid Credentials"); 
+                    }
                 }
             }, 800); 
         });
-    }
-
-    // --- Toast Notification Function ---
-    function showToast() {
-        toast.classList.add('show');
-        
-        // Auto hide after 3.5 seconds
-        setTimeout(() => {
-            toast.classList.remove('show');
-        }, 3500);
     }
 });
 
 // Global close function for the inline onclick
 function closeToast() {
     const toast = document.querySelector('#toast');
-    toast.classList.remove('show');
+    if (toast) {
+        toast.classList.remove('show');
+    }
 }
