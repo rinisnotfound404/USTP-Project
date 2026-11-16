@@ -12,7 +12,7 @@
 </head>
 <body>
 
-    <!-- Notification -->
+    <!-- Premium Toast Notification -->
     <div id="toast" class="toast">
         <div class="toast-icon">
             <i class="fa-solid fa-circle-exclamation"></i>
@@ -26,6 +26,7 @@
         </div>
     </div>
 
+    <!-- Notice Icon (Starts without the .hidden class so it can pop the message, but we will hide the highlight) -->
     <div class="notice-container">
         <button class="notice-btn" id="noticeBtn" title="Important Notice">
             <i class="fa-solid fa-circle-info"></i>
@@ -50,7 +51,6 @@
 
             <form class="login-form" id="loginForm">
                 
-                <!-- University ID  -->
                 <div class="input-group">
                     <input type="text" id="username" required placeholder=" ">
                     <label for="username">University ID</label>
@@ -88,5 +88,48 @@
     </div>
 
     <script src="script.js"></script>
+
+    <!-- NEW LOGIC FOR THE AUTO-POPUP AND ICON STATE -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const noticeBtn = document.getElementById('noticeBtn');
+            const noticePopup = document.getElementById('noticePopup');
+
+            // 1. Remove the yellow highlight immediately on load
+            noticeBtn.classList.add('hidden');
+
+            // 2. Show the popup after a tiny delay (for smooth animation)
+            setTimeout(() => {
+                noticePopup.classList.add('show');
+            }, 100);
+
+            // 3. Hide the popup after 3 seconds
+            setTimeout(() => {
+                noticePopup.classList.remove('show');
+                // The icon stays 'hidden' (unhighlighted) so it looks clean
+            }, 3100); // 100ms delay + 3000ms duration
+
+            // 4. Allow the user to click it again manually
+            noticeBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                noticePopup.classList.toggle('show');
+                
+                // If they open it, we remove the 'hidden' class to highlight it again
+                if (noticePopup.classList.contains('show')) {
+                    noticeBtn.classList.remove('hidden');
+                } else {
+                    noticeBtn.classList.add('hidden');
+                }
+            });
+
+            // 5. Close when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!noticePopup.contains(e.target) && e.target !== noticeBtn && !noticeBtn.contains(e.target)) {
+                    noticePopup.classList.remove('show');
+                    noticeBtn.classList.add('hidden');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
