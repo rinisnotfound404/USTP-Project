@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USTP HealthLink | Nurse Portal</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dashboard-body">
+
+    <div class="bg-canvas">
+        <div class="glow glow-blue"></div>
+        <div class="glow glow-gold"></div>
+    </div>
+
+    <div class="app-container">
+        
+        <!-- Top Header -->
+        <header class="top-header">
+            <div class="brand-logo" style="cursor: default;">
+                <span class="text-blue">Health</span><span class="text-gold">Link</span>
+            </div>
+
+            <div class="header-right-side">
+                
+                <!-- Profile Button -->
+                <div class="profile-btn" onclick="switchNurseTab(event, 'profile')">
+                    <div class="user-info">
+                        <h2>Nurse Joy</h2>
+                        <p>Clinic Staff</p>
+                    </div>
+                    <div class="user-avatar">
+                        <span class="avatar-fallback nurse-avatar" title="Joy">J</span>
+                    </div>
+                </div>
+
+                <!-- Notifications -->
+                <div class="notification-container">
+                    <button class="notification-btn" id="notifBtn" title="Notifications">
+                        <i class="fa-regular fa-bell"></i>
+                    </button>
+                    
+                    <div class="notice-popup notification-popup" id="notifPopup">
+                        <div class="notice-header">
+                            <i class="fa-regular fa-bell"></i> Notifications
+                        </div>
+                        <div class="notif-list">
+                            <div class="notif-empty">
+                                <div class="notif-empty-icon">
+                                    <i class="fa-regular fa-bell-slash"></i>
+                                </div>
+                                <h4>All caught up!</h4>
+                                <p>You have no new notifications at this time.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </header>
+
+        <!-- Main Layout -->
+        <div class="main-layout">
+            
+            <!-- Left Panel -->
+            <aside class="left-panel">
+                <div class="nav-track">
+                    <a href="#" class="nav-item active" id="nav-overview" onclick="switchNurseTab(event, 'overview')">
+                        <div class="nav-icon"><i class="fa-solid fa-chart-pie"></i></div>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="#" class="nav-item" id="nav-appointments" onclick="switchNurseTab(event, 'appointments')">
+                        <div class="nav-icon"><i class="fa-solid fa-calendar-check"></i></div>
+                        <span>Appointments</span>
+                    </a>
+                    <a href="#" class="nav-item" id="nav-doctors" onclick="switchNurseTab(event, 'doctors')">
+                        <div class="nav-icon"><i class="fa-solid fa-user-doctor"></i></div>
+                        <span>Doctors</span>
+                    </a>
+                    <a href="#" class="nav-item" id="nav-patients" onclick="switchNurseTab(event, 'patients')">
+                        <div class="nav-icon"><i class="fa-solid fa-users"></i></div>
+                        <span>Patients</span>
+                    </a>
+                    <a href="#" class="nav-item" id="nav-records" onclick="switchNurseTab(event, 'records')">
+                        <div class="nav-icon"><i class="fa-solid fa-folder-open"></i></div>
+                        <span>Records</span>
+                    </a>
+                    <a href="#" class="nav-item" id="nav-profile" onclick="switchNurseTab(event, 'profile')">
+                        <div class="nav-icon"><i class="fa-solid fa-user-circle"></i></div>
+                        <span>Profile</span>
+                    </a>
+                </div>
+            </aside>
+
+            <!-- Right Panel -->
+            <main class="right-panel">
+                
+                <!-- Overview Dashboard -->
+                <div id="view-overview" class="page-view active-view">
+                    <div class="welcome-banner">
+                        <div class="welcome-text">
+                            <h1>Clinic <span>Overview</span></h1>
+                            <p>Here is the status of the clinic for today.</p>
+                        </div>
+                    </div>
+
+                    <div class="nurse-stats-grid">
+                        <div class="nurse-stat-card">
+                            <div class="stat-icon yellow"><i class="fa-solid fa-clock-rotate-left"></i></div>
+                            <div class="stat-info">
+                                <h3>1</h3>
+                                <p>Pending Requests</p>
+                            </div>
+                        </div>
+                        <div class="nurse-stat-card">
+                            <div class="stat-icon blue"><i class="fa-solid fa-calendar-check"></i></div>
+                            <div class="stat-info">
+                                <h3>1</h3>
+                                <p>Booked Today</p>
+                            </div>
+                        </div>
+                        <div class="nurse-stat-card">
+                            <div class="stat-icon green"><i class="fa-solid fa-user-doctor"></i></div>
+                            <div class="stat-info">
+                                <h3>1</h3>
+                                <p>Active Doctors</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="content-section" style="margin-top: 40px;">
+                        <div class="section-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                            <h3 style="font-size: 20px; font-weight: 800; color: #0f172a;">Recent Requests</h3>
+                            <a href="#" onclick="switchNurseTab(event, 'appointments')" style="color: #1e3a8a; font-weight: 700; text-decoration: none; font-size: 14px;">View All <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                        <div class="approval-grid">
+                            <div class="approval-card" style="border-left-color: #fbbf24;">
+                                <div class="approval-card-header">
+                                    <div class="student-info">
+                                        <h3>Justin Acedo</h3>
+                                        <p>ID: 2026-001</p>
+                                    </div>
+                                    <span class="status-badge pending">Pending</span>
+                                </div>
+                                <div class="approval-card-body" style="padding: 15px 25px;">
+                                    <div class="info-row">
+                                        <i class="fa-solid fa-notes-medical"></i>
+                                        <div>
+                                            <span class="info-label">Reason</span>
+                                            <span class="info-value">General Checkup</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Appointments -->
+                <div id="view-appointments" class="page-view">
+                    <div class="welcome-banner" style="display: flex; justify-content: space-between; align-items: flex-end;">
+                        <div class="welcome-text">
+                            <h1>Active <span>Appointments</span></h1>
+                            <p>Monitor and manage all clinic appointments.</p>
+                        </div>
+                    </div>
+
+                    <div class="appt-controls">
+                        <div class="appt-tabs">
+                            <button class="appt-tab active" id="tab-all" onclick="filterAppointments('all')">All Active</button>
+                            <button class="appt-tab" id="tab-pending" onclick="filterAppointments('pending')">Pending</button>
+                            <button class="appt-tab" id="tab-confirmed" onclick="filterAppointments('confirmed')">Confirmed</button>
+                        </div>
+                        <div class="appt-search">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input type="text" placeholder="Search appointments...">
+                        </div>
+                    </div>
+
+                    <div class="admin-table-container" style="padding: 0; overflow: hidden;">
+                        <table class="admin-table" id="appointments-table">
+                            <thead style="background: #f8fafc;">
+                                <tr>
+                                    <th style="padding-left: 25px;">Patient</th>
+                                    <th>Doctor</th>
+                                    <th>Date & Time</th>
+                                    <th>Reason</th>
+                                    <th>Status</th>
+                                    <th style="text-align: right; padding-right: 25px;">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Row 1: Confirmed (Upcoming) - UPDATED TO JUSTIN -->
+                                <tr class="appt-row" data-status="confirmed">
+                                    <td style="padding-left: 25px;">
+                                        <div class="table-user">
+                                            <div class="table-avatar" style="background: #e0e7ff; color: #4338ca;">J</div>
+                                            <div class="table-user-info">
+                                                <h4>Justin Jacob Acedo</h4>
+                                                <p>justin.acedo@ustp.edu.ph</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><strong>Dr. Mabini</strong></td>
+                                    <td>2026-11-24<br><span style="font-size:12px; color:#64748b;">1:00 PM</span></td>
+                                    <td>Dental Checkup</td>
+                                    <td><span class="status-badge confirmed">Confirmed</span></td>
+                                    <td style="text-align: right; padding-right: 25px;">
+                                        <button class="action-btn view" onclick="moveToRecords(this)"><i class="fa-solid fa-check"></i> Mark Completed</button>
+                                    </td>
+                                </tr>
+                                <!-- Row 2: Pending -->
+                                <tr class="appt-row" data-status="pending">
+                                    <td style="padding-left: 25px;">
+                                        <div class="table-user">
+                                            <div class="table-avatar" style="background: #fffbeb; color: #d97706;">A</div>
+                                            <div class="table-user-info">
+                                                <h4>Andres Bonifacio</h4>
+                                                <p>andres.b@ustp.edu.ph</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><strong>Dr. Jose Rizal</strong></td>
+                                    <td>2026-11-26<br><span style="font-size:12px; color:#64748b;">3:00 AM</span></td>
+                                    <td>Medical Consultation</td>
+                                    <td><span class="status-badge pending">Pending</span></td>
+                                    <td style="text-align: right; padding-right: 25px;">
+                                        <button class="action-btn approve" onclick="approveAppointment(this)"><i class="fa-solid fa-check"></i> Approve</button>
+                                        <button class="action-btn reject" onclick="rejectAppointment(this)"><i class="fa-solid fa-xmark"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Doctors -->
+                <div id="view-doctors" class="page-view">
+                    <div class="welcome-banner" style="display: flex; justify-content: space-between; align-items: flex-end;">
+                        <div class="welcome-text">
+                            <h1>Doctor <span>Schedule</span></h1>
+                            <p>Manage which doctors are currently active for booking.</p>
+                        </div>
+                        <button class="profile-btn-primary" onclick="openAddDoctorModal()" style="margin-bottom: 10px;">
+                            <i class="fa-solid fa-plus"></i> Add Doctor
+                        </button>
+                    </div>
+
+                    <div class="content-section">
+                        <div class="admin-table-container">
+                            <table class="admin-table" id="doctor-table">
+                                <thead>
+                                    <tr>
+                                        <th>Doctor Name</th>
+                                        <th>Specialty</th>
+                                        <th>Schedule</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="doctor-table-body">
+                                    <tr id="doc-row-1">
+                                        <td><strong>Dr. Mabini</strong></td>
+                                        <td>General Physician</td>
+                                        <td><span id="doc-sched-1" style="font-size: 13px; color: #64748b;">Mon-Fri, 8:00 AM - 12:00 PM</span></td>
+                                        <td><span class="status-badge confirmed" id="doc-status-1">Active</span></td>
+                                        <td>
+                                            <button class="action-btn" style="margin-right: 5px;" onclick="openScheduleModal(1, 'Dr. Mabini')">Manage Schedule</button>
+                                            <button class="action-btn" id="doc-btn-1" onclick="toggleDoctorStatus(1)">Set On Leave</button>
+                                            <button class="action-btn reject" onclick="removeDoctor(1)"><i class="fa-solid fa-trash"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr id="doc-row-2">
+                                        <td><strong>Dr. Jose Rizal</strong></td>
+                                        <td>General Dentist</td>
+                                        <td><span id="doc-sched-2" style="font-size: 13px; color: #64748b;">Tue-Thu, 1:00 PM - 4:00 PM</span></td>
+                                        <td><span class="status-badge" id="doc-status-2" style="background:#f1f5f9; color:#64748b; border-color:#e2e8f0;">On Leave</span></td>
+                                        <td>
+                                            <button class="action-btn" style="margin-right: 5px;" onclick="openScheduleModal(2, 'Dr. Jose Rizal')">Manage Schedule</button>
+                                            <button class="action-btn" id="doc-btn-2" onclick="toggleDoctorStatus(2)">Set Active</button>
+                                            <button class="action-btn reject" onclick="removeDoctor(2)"><i class="fa-solid fa-trash"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Patients -->
+                <div id="view-patients" class="page-view">
+                    <div class="welcome-banner">
+                        <div class="welcome-text">
+                            <h1>Patient <span>Directory</span></h1>
+                            <p>Search and view student medical histories.</p>
+                        </div>
+                    </div>
+                    <div class="profile-card" style="text-align: center; padding: 60px;">
+                        <i class="fa-solid fa-users" style="font-size: 40px; color: #cbd5e1; margin-bottom: 15px;"></i>
+                        <h3 style="color: #0f172a; font-size: 20px;">Patient Database</h3>
+                        <p style="color: #64748b; margin-top: 5px;">This feature is coming soon in full development.</p>
+                    </div>
+                </div>
+
+                <!-- Records (Completed Visits) -->
+                <div id="view-records" class="page-view">
+                    <div class="welcome-banner">
+                        <div class="welcome-text">
+                            <h1>Medical <span>Records</span></h1>
+                            <p>Manage completed clinic visit logs.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="admin-table-container" style="padding: 0; overflow: hidden;">
+                        <table class="admin-table">
+                            <thead style="background: #f8fafc;">
+                                <tr>
+                                    <th style="padding-left: 25px;">Patient</th>
+                                    <th>Doctor</th>
+                                    <th>Date & Time</th>
+                                    <th>Reason</th>
+                                    <th>Status</th>
+                                    <th style="text-align: right; padding-right: 25px;">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="records-table-body">
+                                <!-- Row 1: Existing historical record -->
+                                <tr>
+                                    <td style="padding-left: 25px;">
+                                        <div class="table-user">
+                                            <div class="table-avatar" style="background: #f3e8ff; color: #9333ea;">M</div>
+                                            <div class="table-user-info">
+                                                <h4>Maria Clara</h4>
+                                                <p>maria.clara@ustp.edu.ph</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><strong>Dr. Rizal</strong></td>
+                                    <td>2026-11-20<br><span style="font-size:12px; color:#64748b;">10:00 AM</span></td>
+                                    <td>Dental Checkup</td>
+                                    <td><span class="status-badge confirmed" style="background: #f0fdf4; color: #16a34a; border-color: #bbf7d0;">Completed</span></td>
+                                    <td style="text-align: right; padding-right: 25px;">
+                                        <button class="action-btn view" onclick="alert('View Medical Record')"><i class="fa-solid fa-eye"></i> View</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Profile -->
+                <div id="view-profile" class="page-view">
+                    <div class="welcome-banner">
+                        <div class="welcome-text">
+                            <h1>My <span>Profile</span></h1>
+                            <p>Manage your account information and settings.</p>
+                        </div>
+                    </div>
+
+                    <div class="profile-content">
+                        <div class="profile-hero-card">
+                            <div class="profile-hero-bg"></div>
+                            <div class="profile-hero-content">
+                                <div class="profile-hero-avatar">
+                                    <span class="avatar-fallback nurse-avatar" title="Joy">J</span>
+                                </div>
+                                <h1>Nurse Joy</h1>
+                                <p>Registered Nurse | Clinic Staff</p>
+                                <span class="profile-status-badge"><i class="fa-solid fa-check-circle"></i> Active Duty</span>
+                            </div>
+                        </div>
+
+                        <div class="profile-card">
+                            <h2 class="profile-card-title">Staff Information</h2>
+                            <p class="profile-card-note">These fields are managed by the system administrator.</p>
+
+                            <div class="profile-grid">
+                                <div class="profile-field">
+                                    <span class="profile-field-label">Staff ID</span>
+                                    <span class="profile-field-value">NURSE-001</span>
+                                </div>
+                                <div class="profile-field">
+                                    <span class="profile-field-label">Full Name</span>
+                                    <span class="profile-field-value">Nurse Joy</span>
+                                </div>
+                                <div class="profile-field">
+                                    <span class="profile-field-label">University Email</span>
+                                    <span class="profile-field-value">nurse.joy@ustp.edu.ph</span>
+                                </div>
+                                <div class="profile-field">
+                                    <span class="profile-field-label">Role</span>
+                                    <span class="profile-field-value">Nurse</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="logout-section">
+                            <p class="logout-text">You'll need to sign in again to access your account.</p>
+                            <button type="button" class="profile-btn-danger" onclick="confirmLogout()">
+                                Log out
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- Logout Confirm Modal -->
+    <div class="modal-backdrop" id="confirm-modal" hidden>
+        <div class="modal-card">
+            <h3 class="modal-title" id="confirm-title">Confirm</h3>
+            <p class="modal-text" id="confirm-text">Are you sure?</p>
+            <div class="modal-actions">
+                <button type="button" class="modal-btn-secondary" id="confirm-cancel">Cancel</button>
+                <button type="button" class="modal-btn-primary" id="confirm-ok">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Doctor Modal -->
+    <div class="modal-backdrop" id="doctor-modal" hidden>
+        <div class="modal-card">
+            <h3 class="modal-title">Add New Doctor</h3>
+            <form id="add-doctor-form" onsubmit="saveNewDoctor(event)">
+                <div class="profile-label" style="margin-bottom: 15px;">
+                    <label>Doctor Name</label>
+                    <input type="text" id="new-doc-name" placeholder="e.g., Dela Cruz (Do not include 'Dr.')" required>
+                </div>
+                <div class="profile-label" style="margin-bottom: 25px;">
+                    <label>Specialty</label>
+                    <select id="new-doc-specialty" required>
+                        <option value="" disabled selected>Select specialty...</option>
+                        <option value="General Physician">General Physician</option>
+                        <option value="General Dentist">General Dentist</option>
+                    </select>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="modal-btn-secondary" onclick="closeAddDoctorModal()">Cancel</button>
+                    <button type="submit" class="modal-btn-primary">Save Doctor</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Manage Schedule Modal -->
+    <div class="modal-backdrop" id="schedule-modal" hidden>
+        <div class="modal-card">
+            <h3 class="modal-title" id="schedule-modal-title">Manage Schedule</h3>
+            <form id="schedule-form" onsubmit="saveSchedule(event)">
+                <input type="hidden" id="sched-doc-id">
+                <div class="profile-label" style="margin-bottom: 15px;">
+                    <label>Days Available</label>
+                    <input type="text" id="sched-days" placeholder="e.g., Monday to Friday, or Mon/Wed/Fri" required>
+                </div>
+                <div class="profile-row">
+                    <div class="profile-label">
+                        <label>Start Time</label>
+                        <input type="time" id="sched-start" required>
+                    </div>
+                    <div class="profile-label">
+                        <label>End Time</label>
+                        <input type="time" id="sched-end" required>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="modal-btn-secondary" onclick="closeScheduleModal()">Cancel</button>
+                    <button type="submit" class="modal-btn-primary">Save Schedule</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+    <script>
+        // Tab Switching
+        function switchNurseTab(event, tabName) {
+            if (event) event.preventDefault();
+            
+            document.querySelectorAll('.page-view').forEach(view => view.classList.remove('active-view'));
+            document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+
+            const viewId = 'view-' + tabName;
+            const navId = 'nav-' + tabName;
+
+            if (document.getElementById(viewId)) {
+                document.getElementById(viewId).classList.add('active-view');
+                document.getElementById(navId).classList.add('active');
+            }
+        }
+
+        // Appointment Action Logic
+        function filterAppointments(status) {
+            document.querySelectorAll('.appt-tab').forEach(tab => tab.classList.remove('active'));
+            document.getElementById('tab-' + status).classList.add('active');
+
+            const rows = document.querySelectorAll('.appt-row');
+            rows.forEach(row => {
+                const rowStatus = row.getAttribute('data-status');
+                if (status === 'all' || rowStatus === status) {
+                    row.style.display = ''; 
+                } else {
+                    row.style.display = 'none'; 
+                }
+            });
+        }
+
+        function approveAppointment(btn) {
+            const row = btn.closest('tr');
+            row.setAttribute('data-status', 'confirmed');
+            
+            const badge = row.querySelector('.status-badge');
+            badge.className = 'status-badge confirmed';
+            badge.textContent = 'Confirmed';
+            
+            const actionCell = row.querySelector('td:last-child');
+            actionCell.innerHTML = `<button class="action-btn view" onclick="moveToRecords(this)"><i class="fa-solid fa-check"></i> Mark Completed</button>`;
+            
+            const activeTab = document.querySelector('.appt-tab.active').id.replace('tab-', '');
+            filterAppointments(activeTab);
+        }
+
+        function rejectAppointment(btn) {
+            if(confirm('Are you sure you want to cancel this appointment?')) {
+                const row = btn.closest('tr');
+                row.remove();
+            }
+        }
+
+        function moveToRecords(btn) {
+            const row = btn.closest('tr');
+            const patientName = row.querySelector('h4').textContent;
+            
+            if(confirm(`Mark ${patientName}'s appointment as Completed and move to Records?`)) {
+                const rowHTML = row.outerHTML;
+                const recordsBody = document.getElementById('records-table-body');
+                const newRow = document.createElement('tr');
+                
+                newRow.innerHTML = rowHTML;
+                const statusBadge = newRow.querySelector('.status-badge');
+                statusBadge.className = 'status-badge confirmed';
+                statusBadge.style.background = '#f0fdf4';
+                statusBadge.style.color = '#16a34a';
+                statusBadge.style.borderColor = '#bbf7d0';
+                statusBadge.textContent = 'Completed';
+                
+                newRow.querySelector('td:last-child').innerHTML = `<button class="action-btn view" onclick="alert('View Medical Record')"><i class="fa-solid fa-eye"></i> View</button>`;
+                
+                recordsBody.appendChild(newRow);
+                row.remove();
+            }
+        }
+
+        // Doctor Status Toggle
+        function toggleDoctorStatus(id) {
+            const statusBadge = document.getElementById(`doc-status-${id}`);
+            const actionBtn = document.getElementById(`doc-btn-${id}`);
+
+            if (statusBadge.textContent.trim() === 'Active') {
+                statusBadge.className = 'status-badge';
+                statusBadge.style.background = '#f1f5f9';
+                statusBadge.style.color = '#64748b';
+                statusBadge.style.borderColor = '#e2e8f0';
+                statusBadge.textContent = 'On Leave';
+                actionBtn.textContent = 'Set Active';
+            } else {
+                statusBadge.className = 'status-badge confirmed';
+                statusBadge.style.background = '';
+                statusBadge.style.color = '';
+                statusBadge.style.borderColor = '';
+                statusBadge.textContent = 'Active';
+                actionBtn.textContent = 'Set On Leave';
+            }
+        }
+
+        // Notifications
+        const notifBtn = document.getElementById('notifBtn');
+        const notifPopup = document.getElementById('notifPopup');
+        if (notifBtn && notifPopup) {
+            notifBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                notifPopup.classList.toggle('show');
+            });
+            document.addEventListener('click', (e) => {
+                if (!notifPopup.contains(e.target) && !notifBtn.contains(e.target)) {
+                    notifPopup.classList.remove('show');
+                }
+            });
+        }
+
+        // Doctor Management Logic
+        let doctorIdCounter = 3;
+
+        function openAddDoctorModal() {
+            const modal = document.getElementById('doctor-modal');
+            modal.hidden = false;
+            requestAnimationFrame(() => modal.classList.add('visible'));
+            document.getElementById('new-doc-name').focus();
+        }
+
+        function closeAddDoctorModal() {
+            const modal = document.getElementById('doctor-modal');
+            modal.classList.remove('visible');
+            setTimeout(() => { modal.hidden = true; }, 200);
+            document.getElementById('add-doctor-form').reset();
+        }
+
+        function saveNewDoctor(e) {
+            e.preventDefault();
+            const rawName = document.getElementById('new-doc-name').value.trim();
+            const formattedName = rawName.startsWith('Dr.') ? rawName : `Dr. ${rawName}`;
+            const specialty = document.getElementById('new-doc-specialty').value;
+            const currentId = doctorIdCounter++;
+
+            const tbody = document.getElementById('doctor-table-body');
+            const tr = document.createElement('tr');
+            tr.id = `doc-row-${currentId}`;
+            
+            tr.innerHTML = `
+                <td><strong>${formattedName}</strong></td>
+                <td>${specialty}</td>
+                <td><span id="doc-sched-${currentId}" style="font-size: 13px; color: #64748b;">Not set</span></td>
+                <td><span class="status-badge" id="doc-status-${currentId}" style="background:#f1f5f9; color:#64748b; border-color:#e2e8f0;">On Leave</span></td>
+                <td>
+                    <button class="action-btn" style="margin-right: 5px;" onclick="openScheduleModal(${currentId}, '${formattedName}')">Manage Schedule</button>
+                    <button class="action-btn" id="doc-btn-${currentId}" onclick="toggleDoctorStatus(${currentId})">Set Active</button>
+                    <button class="action-btn reject" onclick="removeDoctor(${currentId})"><i class="fa-solid fa-trash"></i></button>
+                </td>
+            `;
+            
+            tbody.appendChild(tr);
+            closeAddDoctorModal();
+        }
+
+        function removeDoctor(id) {
+            if(confirm("Are you sure you want to remove this doctor from the system?")) {
+                const row = document.getElementById(`doc-row-${id}`);
+                if (row) row.remove();
+            }
+        }
+
+        // Schedule Management Logic
+        function openScheduleModal(id, name) {
+            const modal = document.getElementById('schedule-modal');
+            document.getElementById('sched-doc-id').value = id;
+            document.getElementById('schedule-modal-title').textContent = `Manage Schedule: ${name}`;
+            
+            const currentSchedText = document.getElementById(`doc-sched-${id}`).textContent;
+            if (currentSchedText !== 'Not set') {
+                const parts = currentSchedText.split(', ');
+                if(parts.length === 2) {
+                    document.getElementById('sched-days').value = parts[0];
+                    const times = parts[1].split(' - ');
+                    if (times.length === 2) {
+                        document.getElementById('sched-start').value = convertTo24Hour(times[0]);
+                        document.getElementById('sched-end').value = convertTo24Hour(times[1]);
+                    }
+                }
+            } else {
+                document.getElementById('schedule-form').reset();
+            }
+
+            modal.hidden = false;
+            requestAnimationFrame(() => modal.classList.add('visible'));
+        }
+
+        function closeScheduleModal() {
+            const modal = document.getElementById('schedule-modal');
+            modal.classList.remove('visible');
+            setTimeout(() => { modal.hidden = true; }, 200);
+        }
+
+        function saveSchedule(e) {
+            e.preventDefault();
+            const id = document.getElementById('sched-doc-id').value;
+            const days = document.getElementById('sched-days').value;
+            const start = document.getElementById('sched-start').value;
+            const end = document.getElementById('sched-end').value;
+
+            const startFormatted = convertTo12Hour(start);
+            const endFormatted = convertTo12Hour(end);
+
+            document.getElementById(`doc-sched-${id}`).textContent = `${days}, ${startFormatted} - ${endFormatted}`;
+            closeScheduleModal();
+        }
+
+        function convertTo12Hour(time24) {
+            if(!time24) return '';
+            let [hours, minutes] = time24.split(':');
+            hours = parseInt(hours, 10);
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12;
+            return `${hours}:${minutes} ${ampm}`;
+        }
+
+        function convertTo24Hour(time12) {
+            if(!time12) return '';
+            let [time, modifier] = time12.split(' ');
+            let [hours, minutes] = time.split(':');
+            if (hours === '12') hours = '00';
+            if (modifier === 'PM') hours = parseInt(hours, 10) + 12;
+            return `${hours.toString().padStart(2, '0')}:${minutes}`;
+        }
+
+        // Logout Modal
+        let modalResolve = null;
+        function showConfirm(title, message, okLabel = "Confirm", cancelLabel = "Cancel") {
+            return new Promise(resolve => {
+                const backdrop  = document.getElementById('confirm-modal');
+                const titleEl   = document.getElementById('confirm-title');
+                const textEl    = document.getElementById('confirm-text');
+                const okBtn     = document.getElementById('confirm-ok');
+                const cancelBtn = document.getElementById('confirm-cancel');
+
+                titleEl.textContent   = title;
+                textEl.textContent    = message;
+                okBtn.textContent     = okLabel;
+                cancelBtn.textContent = cancelLabel;
+
+                modalResolve = (value) => {
+                    backdrop.classList.remove('visible');
+                    setTimeout(() => { backdrop.hidden = true; }, 200);
+                    document.removeEventListener('keydown', onKey);
+                    okBtn.removeEventListener('click', onOk);
+                    cancelBtn.removeEventListener('click', onCancel);
+                    backdrop.removeEventListener('click', onBackdrop);
+                    modalResolve = null;
+                    resolve(value);
+                };
+
+                const onOk       = () => modalResolve(true);
+                const onCancel   = () => modalResolve(false);
+                const onBackdrop = (e) => { if (e.target === backdrop) modalResolve(false); };
+                const onKey      = (e) => {
+                    if (e.key === 'Escape') modalResolve(false);
+                    if (e.key === 'Enter')  modalResolve(true);
+                };
+
+                okBtn.addEventListener('click', onOk);
+                cancelBtn.addEventListener('click', onCancel);
+                backdrop.addEventListener('click', onBackdrop);
+                document.addEventListener('keydown', onKey);
+
+                backdrop.hidden = false;
+                requestAnimationFrame(() => backdrop.classList.add('visible'));
+                okBtn.focus();
+            });
+        }
+
+        async function confirmLogout() {
+            const confirmed = await showConfirm(
+                "End Shift?",
+                "You will be logged out of the Nurse Station.",
+                "Log out",
+                "Stay"
+            );
+            if (!confirmed) return;
+            window.location.href = 'nurse_login.html';
+        }
+    </script>
+</body>
+</html>
