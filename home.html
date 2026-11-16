@@ -12,7 +12,6 @@
 </head>
 <body class="dashboard-body">
 
-    <!-- Background Canvas for depth -->
     <div class="bg-canvas">
         <div class="glow glow-blue"></div>
         <div class="glow glow-gold"></div>
@@ -22,22 +21,45 @@
         
         <!-- 1. TOP HEADER -->
         <header class="top-header">
-            <div class="nav-logo">
-                HealthLink
+            <div class="brand-logo">
+                <span class="text-blue">Health</span><span class="text-gold">Link</span>
             </div>
 
             <div class="header-right-side">
-                <div class="user-profile-header">
+                
+                <div class="profile-btn" onclick="switchTab(event, 'profile')">
                     <div class="user-info">
                         <h2>Justin Jacob Acedo</h2>
-                        <p>BSIT - 1 <span class="user-id">ID: 2026-001</span></p>
+                        <p>BSIT - 1</p>
                     </div>
                     <div class="user-avatar">
                         <img src="https://ui-avatars.com/api/?name=Justin+Acedo&background=1e3a8a&color=ffffff&size=150" alt="Profile">
                     </div>
                 </div>
 
-                <a href="index.html" class="logout-icon" title="Log Out"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+                <!-- NOTIFICATION BELL -->
+                <div class="notice-container notification-container">
+                    <button class="notice-btn notification-btn" id="notifBtn" title="Notifications">
+                        <i class="fa-regular fa-bell"></i>
+                        <!-- Red dot hidden by default since there are no notifications -->
+                    </button>
+                    
+                    <div class="notice-popup notification-popup" id="notifPopup">
+                        <div class="notice-header">
+                            <i class="fa-regular fa-bell"></i> Notifications
+                        </div>
+                        <div class="notif-list">
+                            <!-- EMPTY STATE -->
+                            <div class="notif-empty">
+                                <div class="notif-empty-icon">
+                                    <i class="fa-regular fa-bell-slash"></i>
+                                </div>
+                                <h4>All caught up!</h4>
+                                <p>You have no new notifications at this time.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="notice-container top-header-notice">
                     <button class="notice-btn" id="noticeBtn" title="Important Notice">
@@ -75,6 +97,11 @@
                     <a href="#" class="nav-item">
                         <div class="nav-icon"><i class="fa-regular fa-folder-open"></i></div>
                         <span>Records</span>
+                    </a>
+                    
+                    <a href="#" class="nav-item" id="nav-profile" onclick="switchTab(event, 'profile')">
+                        <div class="nav-icon"><i class="fa-regular fa-user"></i></div>
+                        <span>Profile</span>
                     </a>
                 </div>
             </aside>
@@ -149,7 +176,6 @@
 
                 <!-- BOOK APPOINTMENT VIEW -->
                 <div id="view-book" class="page-view">
-                    
                     <div class="welcome-banner">
                         <div class="welcome-text">
                             <h1>Book an <span>Appointment</span></h1>
@@ -157,11 +183,9 @@
                         </div>
                     </div>
 
-                    <!-- Added wrapper to center the form -->
                     <div class="booking-wrapper">
                         <div class="booking-container">
                             <form class="booking-form" id="bookingForm">
-                                
                                 <div class="form-section">
                                     <h3><i class="fa-solid fa-notes-medical"></i> Reason for Visit</h3>
                                     <div class="input-grid">
@@ -216,9 +240,175 @@
                                     <button type="button" class="btn-cancel" onclick="switchTab(event, 'dashboard')">Cancel</button>
                                     <button type="submit" class="btn-submit">Confirm Appointment <i class="fa-solid fa-check"></i></button>
                                 </div>
-
                             </form>
                         </div>
+                    </div>
+                </div>
+
+                <!-- DETAILED PROFILE VIEW -->
+                <div id="view-profile" class="page-view">
+                    
+                    <div class="profile-hero-card">
+                        <div class="profile-hero-bg"></div>
+                        <div class="profile-hero-content">
+                            <div class="profile-hero-avatar">
+                                <img src="https://ui-avatars.com/api/?name=Justin+Acedo&background=1e3a8a&color=ffffff&size=250" alt="Profile">
+                            </div>
+                            <h1>Justin Jacob Acedo</h1>
+                            <p>BSIT - 1st Year</p>
+                            <span class="profile-status-badge"><i class="fa-solid fa-check-circle"></i> Enrolled Student</span>
+                        </div>
+                    </div>
+
+                    <div class="profile-content">
+
+                        <div class="profile-card">
+                            <h2 class="profile-card-title">Account information</h2>
+                            <p class="profile-card-note">These fields are managed by the university and cannot be edited here.</p>
+
+                            <div class="profile-grid">
+                                <div class="profile-field">
+                                    <span class="profile-field-label">Student ID</span>
+                                    <span class="profile-field-value">2026-001</span>
+                                </div>
+                                <div class="profile-field">
+                                    <span class="profile-field-label">Full name</span>
+                                    <span class="profile-field-value">Justin Jacob Acedo</span>
+                                </div>
+                                <div class="profile-field">
+                                    <span class="profile-field-label">University email</span>
+                                    <span class="profile-field-value">justin.acedo@ustp.edu.ph</span>
+                                </div>
+                                <div class="profile-field">
+                                    <span class="profile-field-label">Role</span>
+                                    <span class="profile-field-value">Student</span>
+                                </div>
+                                <div class="profile-field">
+                                    <span class="profile-field-label">Registered since</span>
+                                    <span class="profile-field-value">Aug 15, 2026</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="profile-card bmi-card">
+                            <div class="bmi-header">
+                                <div>
+                                    <h2 class="profile-card-title">Body Mass Index (BMI)</h2>
+                                    <p class="profile-card-note">Based on the WHO Asian classification, used by Philippine clinics.</p>
+                                </div>
+
+                                <div class="bmi-value-box">
+                                    <span class="bmi-value" id="bmi-value">—</span>
+                                    <span class="bmi-category" id="bmi-category">Not enough data</span>
+                                </div>
+                            </div>
+
+                            <div class="bmi-scale">
+                                <div class="bmi-scale-bar">
+                                    <div class="bmi-scale-seg seg-under"></div>
+                                    <div class="bmi-scale-seg seg-normal"></div>
+                                    <div class="bmi-scale-seg seg-over"></div>
+                                    <div class="bmi-scale-seg seg-obese1"></div>
+                                    <div class="bmi-scale-seg seg-obese2"></div>
+                                    <div class="bmi-marker" id="bmi-marker" hidden></div>
+                                </div>
+                                <div class="bmi-scale-labels">
+                                    <span>18.5</span>
+                                    <span>23</span>
+                                    <span>25</span>
+                                    <span>30</span>
+                                </div>
+                            </div>
+
+                            <p class="bmi-disclaimer">
+                                BMI is a general screening tool, not a diagnosis. It doesn't account for muscle mass, body composition, or age.
+                            </p>
+                        </div>
+
+                        <div class="profile-card">
+                            <div class="profile-card-head">
+                                <div>
+                                    <h2 class="profile-card-title">Medical information</h2>
+                                    <p class="profile-card-note">The clinic uses this info to care for you safely. Keep it up to date.</p>
+                                </div>
+                                <button type="button" class="profile-btn-secondary" id="edit-medical-btn" onclick="startEditMedical()">
+                                    Edit
+                                </button>
+                            </div>
+
+                            <form id="profile-form" onsubmit="return saveProfile(event)">
+                                <label class="profile-label">
+                                    Past medical history
+                                    <textarea id="p-medical" rows="3" disabled placeholder="Surgeries, conditions, allergies… Leave blank if none."></textarea>
+                                </label>
+
+                                <label class="profile-label">
+                                    Blood type
+                                    <select id="p-blood" disabled>
+                                        <option value="" selected>Unknown / Prefer not to say</option>
+                                        <option value="A+">A+</option>
+                                        <option value="A-">A-</option>
+                                        <option value="B+">B+</option>
+                                        <option value="B-">B-</option>
+                                        <option value="AB+">AB+</option>
+                                        <option value="AB-">AB-</option>
+                                        <option value="O+">O+</option>
+                                        <option value="O-">O-</option>
+                                    </select>
+                                </label>
+
+                                <div class="profile-row">
+                                    <label class="profile-label">
+                                        Height (cm)
+                                        <input type="number" id="p-height" min="50" max="250" step="0.1" placeholder="170" disabled value="">
+                                    </label>
+                                    <label class="profile-label">
+                                        Weight (kg)
+                                        <input type="number" id="p-weight" min="20" max="300" step="0.1" placeholder="65" disabled value="">
+                                    </label>
+                                </div>
+
+                                <label class="profile-label">
+                                    Emergency contact
+                                    <input type="text" id="p-emergency" disabled placeholder="Name and phone number" value="">
+                                </label>
+
+                                <div class="profile-actions" id="profile-actions" style="display: none;">
+                                    <button type="submit" class="profile-btn-primary">Save changes</button>
+                                    <button type="button" class="profile-btn-secondary" onclick="cancelEditMedical()">Cancel</button>
+                                    <span id="profile-msg" class="profile-msg"></span>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="profile-card">
+                            <h2 class="profile-card-title">Change password</h2>
+                            <p class="profile-card-note">Enter your current password to set a new one.</p>
+
+                            <form id="password-form" onsubmit="return changePassword(event)">
+                                <label class="profile-label">
+                                    Current password
+                                    <input type="password" id="p-current" required autocomplete="current-password">
+                                </label>
+                                <label class="profile-label">
+                                    New password
+                                    <input type="password" id="p-new" required placeholder="At least 6 characters" autocomplete="new-password">
+                                </label>
+
+                                <div class="profile-actions">
+                                    <button type="submit" class="profile-btn-primary">Update password</button>
+                                    <span id="password-msg" class="profile-msg"></span>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="logout-section">
+                            <p class="logout-text">You'll need to sign in again to access your HealthLink account.</p>
+                            <button type="button" class="profile-btn-danger" onclick="confirmLogout()">
+                                Log out
+                            </button>
+                        </div>
+
                     </div>
                 </div>
 
@@ -226,9 +416,22 @@
         </div>
     </div>
 
+    <!-- CONFIRM MODAL -->
+    <div class="modal-backdrop" id="confirm-modal" hidden>
+        <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="confirm-title">
+            <h3 class="modal-title" id="confirm-title">Confirm</h3>
+            <p class="modal-text" id="confirm-text">Are you sure?</p>
+            <div class="modal-actions">
+                <button type="button" class="modal-btn-secondary" id="confirm-cancel">Cancel</button>
+                <button type="button" class="modal-btn-primary" id="confirm-ok">Confirm</button>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 
     <script>
+        // --- Tab Switching Logic ---
         function switchTab(event, tabName) {
             if (event) event.preventDefault(); 
             
@@ -246,13 +449,245 @@
             } else if (tabName === 'book') {
                 document.getElementById('view-book').classList.add('active-view');
                 document.getElementById('nav-book').classList.add('active');
+            } else if (tabName === 'profile') {
+                document.getElementById('view-profile').classList.add('active-view');
+                document.getElementById('nav-profile').classList.add('active');
             }
         }
 
+        // --- Notification Logic (Opens empty state) ---
+        const notifBtn = document.getElementById('notifBtn');
+        const notifPopup = document.getElementById('notifPopup');
+
+        if (notifBtn && notifPopup) {
+            notifBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                notifPopup.classList.toggle('show');
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!notifPopup.contains(e.target) && e.target !== notifBtn && !notifBtn.contains(e.target)) {
+                    notifPopup.classList.remove('show');
+                }
+            });
+        }
+
+        // --- Notice Popup Logic ---
+        const noticeBtn = document.getElementById('noticeBtn');
+        const noticePopup = document.getElementById('noticePopup');
+
+        if (noticeBtn && noticePopup) {
+            noticeBtn.addEventListener('click', (e) => {
+                e.stopPropagation(); 
+                noticePopup.classList.toggle('show');
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!noticePopup.contains(e.target) && e.target !== noticeBtn && !noticeBtn.contains(e.target)) {
+                    noticePopup.classList.remove('show');
+                }
+            });
+        }
+
+        // --- Booking Form Logic ---
         document.getElementById('bookingForm').addEventListener('submit', function(e) {
             e.preventDefault();
             alert('Appointment Booked Successfully!');
             switchTab(null, 'dashboard'); 
+        });
+
+        // =========================================================
+        // PROFILE LOGIC
+        // =========================================================
+
+        let modalResolve = null;
+        function showConfirm(title, message, okLabel = "Confirm", cancelLabel = "Cancel") {
+            return new Promise(resolve => {
+                const backdrop  = document.getElementById('confirm-modal');
+                const titleEl   = document.getElementById('confirm-title');
+                const textEl    = document.getElementById('confirm-text');
+                const okBtn     = document.getElementById('confirm-ok');
+                const cancelBtn = document.getElementById('confirm-cancel');
+
+                titleEl.textContent   = title;
+                textEl.textContent    = message;
+                okBtn.textContent     = okLabel;
+                cancelBtn.textContent = cancelLabel;
+
+                modalResolve = (value) => {
+                    backdrop.classList.remove('visible');
+                    setTimeout(() => { backdrop.hidden = true; }, 200);
+                    document.removeEventListener('keydown', onKey);
+                    okBtn.removeEventListener('click', onOk);
+                    cancelBtn.removeEventListener('click', onCancel);
+                    backdrop.removeEventListener('click', onBackdrop);
+                    modalResolve = null;
+                    resolve(value);
+                };
+
+                const onOk       = () => modalResolve(true);
+                const onCancel   = () => modalResolve(false);
+                const onBackdrop = (e) => { if (e.target === backdrop) modalResolve(false); };
+                const onKey      = (e) => {
+                    if (e.key === 'Escape') modalResolve(false);
+                    if (e.key === 'Enter')  modalResolve(true);
+                };
+
+                okBtn.addEventListener('click', onOk);
+                cancelBtn.addEventListener('click', onCancel);
+                backdrop.addEventListener('click', onBackdrop);
+                document.addEventListener('keydown', onKey);
+
+                backdrop.hidden = false;
+                requestAnimationFrame(() => backdrop.classList.add('visible'));
+                okBtn.focus();
+            });
+        }
+
+        function bmiCategory(bmi) {
+            if (bmi < 18.5)  return { label: "Underweight", cls: "bmi-under" };
+            if (bmi < 23.0)  return { label: "Normal",      cls: "bmi-normal" };
+            if (bmi < 25.0)  return { label: "Overweight",  cls: "bmi-over" };
+            if (bmi < 30.0)  return { label: "Obese I",     cls: "bmi-obese1" };
+            return              { label: "Obese II",    cls: "bmi-obese2" };
+        }
+
+        function updateBMI() {
+            const h = parseFloat(document.getElementById('p-height').value);
+            const w = parseFloat(document.getElementById('p-weight').value);
+
+            const valueEl = document.getElementById('bmi-value');
+            const catEl   = document.getElementById('bmi-category');
+            const marker  = document.getElementById('bmi-marker');
+
+            valueEl.className = 'bmi-value';
+            catEl.className   = 'bmi-category';
+
+            if (!h || !w || h < 50 || h > 250 || w < 20 || w > 300) {
+                valueEl.textContent = '—';
+                catEl.textContent = 'Not enough data';
+                marker.hidden = true;
+                return;
+            }
+
+            const meters = h / 100;
+            const bmi = w / (meters * meters);
+            const cat = bmiCategory(bmi);
+
+            valueEl.textContent = bmi.toFixed(1);
+            valueEl.classList.add(cat.cls);
+
+            catEl.textContent = cat.label;
+            catEl.classList.add(cat.cls);
+
+            const min = 10, max = 40;
+            const clamped = Math.max(min, Math.min(max, bmi));
+            const pct = ((clamped - min) / (max - min)) * 100;
+            marker.style.left = pct + '%';
+            marker.hidden = false;
+            marker.classList.remove('bmi-under','bmi-normal','bmi-over','bmi-obese1','bmi-obese2');
+            marker.classList.add(cat.cls);
+        }
+
+        const MEDICAL_FIELDS = ['p-medical', 'p-blood', 'p-height', 'p-weight', 'p-emergency'];
+        let savedValues = {};
+
+        function captureValues() {
+            savedValues = {};
+            MEDICAL_FIELDS.forEach(id => {
+                savedValues[id] = document.getElementById(id).value;
+            });
+        }
+
+        function restoreValues() {
+            MEDICAL_FIELDS.forEach(id => {
+                if (id in savedValues) {
+                    document.getElementById(id).value = savedValues[id];
+                }
+            });
+            updateBMI();
+        }
+
+        function setMedicalDisabled(disabled) {
+            MEDICAL_FIELDS.forEach(id => {
+                document.getElementById(id).disabled = disabled;
+            });
+
+            document.getElementById('edit-medical-btn').style.display = disabled ? 'block' : 'none';
+            document.getElementById('profile-actions').style.display = disabled ? 'none' : 'flex';
+        }
+
+        function startEditMedical() {
+            captureValues();
+            setMedicalDisabled(false); 
+            document.getElementById('p-medical').focus();
+        }
+
+        async function cancelEditMedical() {
+            const confirmed = await showConfirm(
+                "Discard changes?",
+                "Any edits you've made will be lost. Your saved information will be restored.",
+                "Discard",
+                "Keep editing"
+            );
+            if (!confirmed) return;
+
+            restoreValues();
+            setMedicalDisabled(true);
+            
+            const msg = document.getElementById('profile-msg');
+            msg.textContent = '';
+            msg.className = 'profile-msg';
+        }
+
+        async function saveProfile(e) {
+            e.preventDefault();
+            const msg = document.getElementById('profile-msg');
+            msg.textContent = 'Saved successfully. (Simulation)';
+            msg.classList.add('ok');
+            
+            captureValues();
+            setMedicalDisabled(true);
+            
+            setTimeout(() => {
+                msg.textContent = '';
+                msg.className = 'profile-msg';
+            }, 3000);
+
+            return false;
+        }
+
+        async function changePassword(e) {
+            e.preventDefault();
+            const msg = document.getElementById('password-msg');
+            msg.textContent = 'Password updated. (Simulation)';
+            msg.classList.add('ok');
+            document.getElementById('password-form').reset();
+            
+            setTimeout(() => {
+                msg.textContent = '';
+                msg.className = 'profile-msg';
+            }, 3000);
+            
+            return false;
+        }
+
+        async function confirmLogout() {
+            const confirmed = await showConfirm(
+                "Log out of HealthLink?",
+                "You'll be signed out of your account. Any unsaved changes will be lost.",
+                "Log out",
+                "Stay signed in"
+            );
+            if (!confirmed) return;
+            window.location.href = 'index.html';
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('p-height').addEventListener('input', updateBMI);
+            document.getElementById('p-weight').addEventListener('input', updateBMI);
+            updateBMI();
+            captureValues();
         });
     </script>
 </body>
